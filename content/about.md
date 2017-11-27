@@ -1,6 +1,6 @@
 ---
-title: About Hugo XMin
-author: Yihui Xie
+title: About 
+author: 
 ---
 
 
