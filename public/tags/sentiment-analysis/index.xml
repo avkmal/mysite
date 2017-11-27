@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sentiment Analysis on A minimal Hugo website</title>
+    <link>/tags/sentiment-analysis/</link>
+    <description>Recent content in Sentiment Analysis on A minimal Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 26 Nov 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/sentiment-analysis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Sentiment Analysis on A Million News Headlines</title>
+      <link>/post/2017/11/26/sentiment-analysis-on-a-million-news-headlines/</link>
+      <pubDate>Sun, 26 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017/11/26/sentiment-analysis-on-a-million-news-headlines/</guid>
+      <description>I’ve just finished R for Data Science by Hadley Wickham, and i figured it’s about time i do some analysis to apply the skills I learned. I decided to do sentiment analysis after reading this post by Julia Silge.
+After skimming through some interesting datasets on the internet, i decided to use ’A Million Headlines` dataset which can be found on Kaggle. It’s a dataset of news headlines published over a period of 14 years from 2003 to 2017 taken from Australian news source ABC(Australian Broadcasting Group).</description>
+    </item>
+    
+  </channel>
+</rss>

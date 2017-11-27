@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: Home\n---\n\n[<img src=\"https://simpleicons.org/icons/github.svg\" style=\"max-width:15%;min-width:40px;float:right;\" alt=\"Github repo\" />](https://github.com/yihui/hugo-xmin)\n\n# AKMAL ABDUL RASHID\n\n## A VARIABLE WITH NO NAME\n\nAll pages not under the root directory of the website are listed below. You can also visit the list page of a single section, e.g., [posts](/post/), or [notes](/note/). See the [About](/about/) page for the usage of this theme.\n",
+    "created" : 1511771493294.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "278871758",
+    "id" : "9DB5998",
+    "lastKnownWriteTime" : 1511771628,
+    "last_content_update" : 1511771628096,
+    "path" : "~/web/mysite/content/_index.markdown",
+    "project_path" : "content/_index.markdown",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "text"
+}
