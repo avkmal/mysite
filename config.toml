@@ -1,4 +1,4 @@
-baseurl = "https://akmal.netlify.com/"
+baseurl = "https://akmal.rbind.io/"
 languageCode = "en-us"
 title = "A minimal Hugo website"
 theme = "hugo-xmin"
