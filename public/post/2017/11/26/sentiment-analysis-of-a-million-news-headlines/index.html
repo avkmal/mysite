@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sentiment Analysis on A Million News Headlines | A minimal Hugo website</title>
+    <title>Sentiment Analysis of A Million News Headlines | A minimal Hugo website</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     
@@ -26,7 +26,7 @@
     </nav>
 
 <div class="article-meta">
-<h1><span class="title">Sentiment Analysis on A Million News Headlines</span></h1>
+<h1><span class="title">Sentiment Analysis of A Million News Headlines</span></h1>
 
 <h2 class="date">2017/11/26</h2>
 </div>
@@ -52,9 +52,8 @@ library(reshape2)</code></pre>
 <pre class="r"><code># import data
 news &lt;- as.tibble(fread(&quot;C:/Users/USER/Documents/abcnews-date-text.csv&quot;))</code></pre>
 <pre><code>## 
-Read 50.3% of 1093281 rows
 Read 91.5% of 1093281 rows
-Read 1093281 rows and 2 (of 2) columns from 0.051 GB file in 00:00:04</code></pre>
+Read 1093281 rows and 2 (of 2) columns from 0.051 GB file in 00:00:03</code></pre>
 <pre class="r"><code>news</code></pre>
 <pre><code>## # A tibble: 1,093,281 x 2
 ##    publish_date                                      headline_text
@@ -611,7 +610,7 @@ all_lexicons</code></pre>
 <div id="summary" class="section level2">
 <h2>Summary</h2>
 <p>We can see from the analysis that negative sentiment has been dominating media headlines in Australia since 2013 with fear being the dominating theme emotion. Most of these negative sentiment came from reporting of crime, automobile crash etc.These types of headlines are the most appealing to readers, hence why their term frequencies are high. However, the 3 lexicons we used in this analysis failed to categorized so many words in all the headlines. To be exact, there are <strong>4,652,959</strong>, <strong>3,982,132</strong>, and <strong>4,532,575</strong> words that are not categorized by <strong>Bing</strong>, <strong>NRC</strong>, and <strong>AFINN</strong> lexicon consecutively.</p>
-<p>It is important to note that lexicons in the <code>tidytext</code> package are not the be all and end all for text/sentiment analysis. One can even create their own lexicons through crowd-sourcing (such as Amazon Mechanical-Turk, which is how some of the lexicons shown here were created), from utilizing word lists accrued by your own company throughout the years dealing with customer/employee feedback, etc. It would be interesting to compare this datasets with headlines from another country. For example, we can compare the most focused term used by headlines in different country using the tf-idf statistic.</p>
+<p>It is important to note that lexicons in the <code>tidytext</code> package are not the be all and end all for text/sentiment analysis. One can even create their own lexicons through crowd-sourcing (such as Amazon Mechanical-Turk, which is how some of the lexicons shown here were created), from utilizing word lists accrued by your own company throughout the years dealing with customer/employee feedback, etc. It would be interesting to compare this datasets with headlines from another country. For example, we can compare the most focused term used by headlines in different country using the tf-idf statistic. But bfore that, i have to build more foundational skills in text mining by going through this amazing book by Julia Silge, <a href="http://tidytextmining.com">Text Mining With R</a>.</p>
 </div>
 </div>
 

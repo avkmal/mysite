@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/post/2017/11/26/sentiment-analysis-on-a-million-news-headlines/</loc>
+    <loc>/post/2017/11/26/sentiment-analysis-of-a-million-news-headlines/</loc>
     <lastmod>2017-11-26T00:00:00+00:00</lastmod>
   </url>
   
@@ -41,6 +41,12 @@
   
   <url>
     <loc>/tags/</loc>
+    <lastmod>2017-11-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/text-mining/</loc>
     <lastmod>2017-11-26T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>

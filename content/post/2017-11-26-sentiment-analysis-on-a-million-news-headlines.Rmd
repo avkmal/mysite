@@ -1,13 +1,13 @@
 ---
-title: Sentiment Analysis on A Million News Headlines
+title: Sentiment Analysis of A Million News Headlines
 author: ''
 date: '2017-11-26'
-slug: sentiment-analysis-on-a-million-news-headlines
+slug: sentiment-analysis-of-a-million-news-headlines
 categories: [Project]
-tags: [Sentiment Analysis]
+tags: [Sentiment Analysis, Text Mining]
 ---
 
-I've just finished [R for Data Science](http://r4ds.had.co.nz/) by Hadley Wickham, and i figured it's about time i do some data analysis to apply the skills I learned. I decided to do sentiment analysis after reading this [post](https://juliasilge.com/blog/life-changing-magic/) by Julia Silge.
+I've just finished [R for Data Science](http://r4ds.had.co.nz/) by Hadley Wickham and just started [Text mining With R](http://tidytextmining.com/) by Julia Silge. So I figured it's about time i do some data analysis to apply the skills I learned. I decided to do sentiment analysis after reading this [post](https://juliasilge.com/blog/life-changing-magic/) by Julia Silge.
 
 After skimming through some interesting datasets on the internet, i decided to use 'A Million Headlines` dataset which can be found on Kaggle. It's a dataset of news headlines published over a period of 14 years from 2003 to 2017 taken from Australian news source ABC(Australian Broadcasting Group).
 
@@ -491,4 +491,4 @@ Generally, across all lexicon, the sentiment of the headlines has all been negat
 
 We can see from the analysis that negative sentiment has been dominating media headlines in Australia since 2013 with fear being the dominating theme emotion. Most of these negative sentiment came from reporting of crime, automobile crash etc.These types of headlines are the most appealing to readers, hence why their term frequencies are high. However, the 3 lexicons we used in this analysis failed to categorized so many words in all the headlines. To be exact, there are **4,652,959**, **3,982,132**, and **4,532,575** words that are not categorized by **Bing**, **NRC**, and **AFINN** lexicon consecutively. 
 
-It is important to note that lexicons in the `tidytext` package are not the be all and end all for text/sentiment analysis. One can even create their own lexicons through crowd-sourcing (such as Amazon Mechanical-Turk, which is how some of the lexicons shown here were created), from utilizing word lists accrued by your own company throughout the years dealing with customer/employee feedback, etc. It would be interesting to compare this datasets with headlines from another country. For example, we can compare the most focused term used by headlines in different country using the tf-idf statistic.  
+It is important to note that lexicons in the `tidytext` package are not the be all and end all for text/sentiment analysis. One can even create their own lexicons through crowd-sourcing (such as Amazon Mechanical-Turk, which is how some of the lexicons shown here were created), from utilizing word lists accrued by your own company throughout the years dealing with customer/employee feedback, etc. It would be interesting to compare this datasets with headlines from another country. For example, we can compare the most focused term used by headlines in different country using the tf-idf statistic. But bfore that, i have to build more foundational skills in text mining by going through this amazing book by Julia Silge, [Text Mining With R](http://tidytextmining.com).
