@@ -34,7 +34,7 @@
 </div>
 
 <main>
-<p>I’ve just finished <a href="http://r4ds.had.co.nz/">R for Data Science</a> by Hadley Wickham, and i figured it’s about time i do some analysis to apply the skills I learned. I decided to do sentiment analysis after reading this <a href="https://juliasilge.com/blog/life-changing-magic/">post</a> by Julia Silge.</p>
+<p>I’ve just finished <a href="http://r4ds.had.co.nz/">R for Data Science</a> by Hadley Wickham, and i figured it’s about time i do some data analysis to apply the skills I learned. I decided to do sentiment analysis after reading this <a href="https://juliasilge.com/blog/life-changing-magic/">post</a> by Julia Silge.</p>
 <p>After skimming through some interesting datasets on the internet, i decided to use ’A Million Headlines` dataset which can be found on Kaggle. It’s a dataset of news headlines published over a period of 14 years from 2003 to 2017 taken from Australian news source ABC(Australian Broadcasting Group).</p>
 <p>First, let’s import all the packages needed:</p>
 <pre class="r"><code>library(tidyverse)
@@ -54,8 +54,9 @@ library(reshape2)</code></pre>
 <pre class="r"><code># import data
 news &lt;- as.tibble(fread(&quot;C:/Users/USER/Documents/abcnews-date-text.csv&quot;))</code></pre>
 <pre><code>## 
-Read 76.8% of 1093281 rows
-Read 1093281 rows and 2 (of 2) columns from 0.051 GB file in 00:00:04</code></pre>
+Read 50.3% of 1093281 rows
+Read 91.5% of 1093281 rows
+Read 1093281 rows and 2 (of 2) columns from 0.051 GB file in 00:00:05</code></pre>
 <pre class="r"><code>news</code></pre>
 <pre><code>## # A tibble: 1,093,281 x 2
 ##    publish_date                                      headline_text
@@ -626,7 +627,7 @@ all_lexicons</code></pre>
 
   
   <hr/>
-  &copy; <a href="https://yihui.name">Yihui Xie</a> 2017 | <a href="https://github.com/yihui">Github</a> | <a href="https://twitter.com/xieyihui">Twitter</a>
+  &copy; <a href="https://akmal.netlify.com/">Akmal Abdul Rashid</a> 2017 | <a href="https://github.com/avkmal">Github</a> | <a href="https://twitter.com/_avkmal">Twitter</a>
   
   </footer>
   </body>
