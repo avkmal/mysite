@@ -7,7 +7,7 @@ categories: [Project]
 tags: [Sentiment Analysis]
 ---
 
-I've just finished [R for Data Science](http://r4ds.had.co.nz/) by Hadley Wickham, and i figured it's about time i do some analysis to apply the skills I learned. I decided to do sentiment analysis after reading this [post](https://juliasilge.com/blog/life-changing-magic/) by Julia Silge.
+I've just finished [R for Data Science](http://r4ds.had.co.nz/) by Hadley Wickham, and i figured it's about time i do some data analysis to apply the skills I learned. I decided to do sentiment analysis after reading this [post](https://juliasilge.com/blog/life-changing-magic/) by Julia Silge.
 
 After skimming through some interesting datasets on the internet, i decided to use 'A Million Headlines` dataset which can be found on Kaggle. It's a dataset of news headlines published over a period of 14 years from 2003 to 2017 taken from Australian news source ABC(Australian Broadcasting Group).
 

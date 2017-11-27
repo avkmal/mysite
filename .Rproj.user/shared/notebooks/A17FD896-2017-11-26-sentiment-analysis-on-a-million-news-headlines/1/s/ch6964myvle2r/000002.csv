@@ -1,6 +1,0 @@
-"0","# import data"
-"0","news <- as.tibble(fread(""C:/Users/USER/Documents/abcnews-date-text.csv""))"
-"1","Read 71.3% of 1093281 rows"
-"1","Read 1093281 rows and 2 (of 2) columns from 0.051 GB file in 00:00:04
-"
-"0","news"
