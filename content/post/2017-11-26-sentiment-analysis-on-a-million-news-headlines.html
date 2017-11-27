@@ -27,13 +27,10 @@ library(wordcloud)
 library(reshape2)</code></pre>
 <p>First, let’s import the data</p>
 <pre class="r"><code># import data
-news &lt;- as.tibble(fread(&quot;abcnews-date-text.csv&quot;))</code></pre>
+news &lt;- as.tibble(fread(&quot;C:/Users/USER/Documents/abcnews-date-text.csv&quot;))</code></pre>
 <pre><code>## 
-Read 0.0% of 1093281 rows
-Read 37.5% of 1093281 rows
 Read 76.8% of 1093281 rows
-Read 99.7% of 1093281 rows
-Read 1093281 rows and 2 (of 2) columns from 0.051 GB file in 00:00:09</code></pre>
+Read 1093281 rows and 2 (of 2) columns from 0.051 GB file in 00:00:04</code></pre>
 <pre class="r"><code>news</code></pre>
 <pre><code>## # A tibble: 1,093,281 x 2
 ##    publish_date                                      headline_text

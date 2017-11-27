@@ -33,7 +33,7 @@ First, let's import the data
 
 ```{r message=FALSE}
 # import data
-news <- as.tibble(fread("abcnews-date-text.csv"))
+news <- as.tibble(fread("C:/Users/USER/Documents/abcnews-date-text.csv"))
 news
 ```
 
