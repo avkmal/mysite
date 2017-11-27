@@ -31,4 +31,4 @@ footnotereturnlinkcontents = "↩"
 
 [params]
     description = "A website built through Hugo and blogdown."
-    footer = "&copy; [Akmal Abdul Rashid](https://akmal.netlify.com/) 2017 | [Github](https://github.com/avkmal) | [Email](https://mail.google.com/mail/u/0/#inbox?compose=new)"
+    footer = "&copy; [Akmal Abdul Rashid](https://akmal.netlify.com/) 2017 | [Github](https://github.com/avkmal) | [Email](https://mail.google.com/mail/?fs=1&view=cm&shva=1&to=akmalabdulrashid@gmail.com)"
