@@ -29,7 +29,7 @@ library(wordcloud)
 library(reshape2)
 ```
 
-First, let's import the data
+Now let's import the data
 
 ```{r message=FALSE}
 # import data
