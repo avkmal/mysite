@@ -15,14 +15,12 @@ First, let's import all the packages needed:
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
+library(here)
 library(tidytext)
-library(tidyr)
-library(ggplot2)
 library(viridis)
 library(widyr)
 library(ggraph)
 library(igraph)
-library(data.table)
 library(scales)
 library(knitr)
 library(wordcloud)
@@ -33,7 +31,7 @@ Now let's import the data
 
 ```{r message=FALSE}
 # import data
-news <- as.tibble(fread("C:/Users/USER/Documents/abcnews-date-text.csv"))
+news <- as.tibble(read_csv("C:/Users/USER/Documents/abcnews-date-text.csv"))
 news
 ```
 
