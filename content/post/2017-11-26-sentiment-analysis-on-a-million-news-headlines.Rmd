@@ -31,7 +31,7 @@ Now let's import the data
 
 ```{r message=FALSE}
 # import data
-news <- as.tibble(read_csv("C:/Users/USER/Documents/abcnews-date-text.csv"))
+news <- as.tibble(read_csv(here("abcnews-date-text.csv")))
 news
 ```
 
