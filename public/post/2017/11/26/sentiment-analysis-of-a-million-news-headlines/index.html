@@ -32,15 +32,10 @@
 </div>
 
 <main>
-
-
-<p>I&rsquo;ve just finished <a href="http://r4ds.had.co.nz/">R for Data Science</a> by Hadley Wickham and just started <a href="http://tidytextmining.com/">Text mining With R</a> by Julia Silge. So I figured it&rsquo;s about time i do some data analysis to apply the skills I learned. I decided to do sentiment analysis after reading this <a href="https://juliasilge.com/blog/life-changing-magic/">post</a> by Julia Silge.</p>
-
-<p>After skimming through some interesting datasets on the internet, i decided to use &lsquo;A Million Headlines` dataset which can be found on Kaggle. It&rsquo;s a dataset of news headlines published over a period of 14 years from 2003 to 2017 taken from Australian news source ABC(Australian Broadcasting Group).</p>
-
-<p>First, let&rsquo;s import all the packages needed:</p>
-
-<pre><code class="language-r">library(tidyverse)
+<p>I’ve just finished <a href="http://r4ds.had.co.nz/">R for Data Science</a> by Hadley Wickham and just started <a href="http://tidytextmining.com/">Text mining With R</a> by Julia Silge. So I figured it’s about time i do some data analysis to apply the skills I learned. I decided to do sentiment analysis after reading this <a href="https://juliasilge.com/blog/life-changing-magic/">post</a> by Julia Silge.</p>
+<p>After skimming through some interesting datasets on the internet, i decided to use ’A Million Headlines` dataset which can be found on Kaggle. It’s a dataset of news headlines published over a period of 14 years from 2003 to 2017 taken from Australian news source ABC(Australian Broadcasting Group).</p>
+<p>First, let’s import all the packages needed:</p>
+<pre class="r"><code>library(tidyverse)
 library(here)
 library(tidytext)
 library(viridis)
@@ -50,16 +45,11 @@ library(igraph)
 library(scales)
 library(knitr)
 library(wordcloud)
-library(reshape2)
-</code></pre>
-
-<p>Now let&rsquo;s import the data</p>
-
-<pre><code class="language-r"># import data
+library(reshape2)</code></pre>
+<p>Now let’s import the data</p>
+<pre class="r"><code># import data
 news &lt;- as.tibble(read_csv(here(&quot;abcnews-date-text.csv&quot;)))
-news
-</code></pre>
-
+news</code></pre>
 <pre><code>## # A tibble: 1,093,281 x 2
 ##    publish_date headline_text                                     
 ##           &lt;int&gt; &lt;chr&gt;                                             
@@ -73,22 +63,17 @@ news
 ##  8     20030219 aussie qualifier stosur wastes four memphis match 
 ##  9     20030219 aust addresses un security council over iraq      
 ## 10     20030219 australia is locked into war timetable opp        
-## # ... with 1,093,271 more rows
-</code></pre>
-
-<h1 id="term-frequency">Term Frequency</h1>
-
-<p>One of the common task in text mining is to look at word frequencies. Let&rsquo;s analyze word frequencies in all of the headlines</p>
-
-<pre><code class="language-r">news &lt;- news %&gt;%
+## # ... with 1,093,271 more rows</code></pre>
+<div id="term-frequency" class="section level1">
+<h1>Term Frequency</h1>
+<p>One of the common task in text mining is to look at word frequencies. Let’s analyze word frequencies in all of the headlines</p>
+<pre class="r"><code>news &lt;- news %&gt;%
       # create year column    
       mutate(year = substr(publish_date, 
                 start = 1, stop = 4),
                 linenumber = row_number())
 
-news
-</code></pre>
-
+news</code></pre>
 <pre><code>## # A tibble: 1,093,281 x 4
 ##    publish_date headline_text                              year  linenumb…
 ##           &lt;int&gt; &lt;chr&gt;                                      &lt;chr&gt;     &lt;int&gt;
@@ -102,17 +87,12 @@ news
 ##  8     20030219 aussie qualifier stosur wastes four memph… 2003          8
 ##  9     20030219 aust addresses un security council over i… 2003          9
 ## 10     20030219 australia is locked into war timetable opp 2003         10
-## # ... with 1,093,271 more rows
-</code></pre>
-
+## # ... with 1,093,271 more rows</code></pre>
 <p>we can use <code>unnest_tokens</code> to separate each line into words. The default tokenizing is for words, but other options include characters, sentences, lines, paragraphs, or separation around regex pattern.</p>
-
-<pre><code class="language-r">tidy_news &lt;- news %&gt;% 
+<pre class="r"><code>tidy_news &lt;- news %&gt;% 
         unnest_tokens(word, headline_text)
 
-tidy_news
-</code></pre>
-
+tidy_news</code></pre>
 <pre><code>## # A tibble: 6,988,120 x 4
 ##    publish_date year  linenumber word        
 ##           &lt;int&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;       
@@ -126,21 +106,15 @@ tidy_news
 ##  8     20030219 2003           2 fire        
 ##  9     20030219 2003           2 witnesses   
 ## 10     20030219 2003           2 must        
-## # ... with 6,988,110 more rows
-</code></pre>
-
-<p>Now we can manipulate the data and do term frequency analysis. First, let&rsquo;s remove stop words which can be obtain from dataset <code>stop_words</code> with the function <code>anti_join</code>. Stop words are words which do not contain important significance. We filter out stop words as it could affect our analysis.</p>
-
-<pre><code class="language-r"># remove stopwords
+## # ... with 6,988,110 more rows</code></pre>
+<p>Now we can manipulate the data and do term frequency analysis. First, let’s remove stop words which can be obtain from dataset <code>stop_words</code> with the function <code>anti_join</code>. Stop words are words which do not contain important significance. We filter out stop words as it could affect our analysis.</p>
+<pre class="r"><code># remove stopwords
 
 data(&quot;stop_words&quot;)
 tidy_news &lt;- tidy_news %&gt;%
-        anti_join(stop_words)
-</code></pre>
-
-<p>Let&rsquo;s see the most frequent words use in the news headlines since 2003:</p>
-
-<pre><code class="language-r"># most common words
+        anti_join(stop_words)</code></pre>
+<p>Let’s see the most frequent words use in the news headlines since 2003:</p>
+<pre class="r"><code># most common words
 tidy_news %&gt;%
     count(word, sort = TRUE) %&gt;%
     head(20) %&gt;%
@@ -149,24 +123,17 @@ tidy_news %&gt;%
     geom_bar(stat = &quot;identity&quot;) +
     coord_flip() +
     ylab(&quot;Number of occurences&quot;) +
-    xlab(&quot;Word&quot;)
-</code></pre>
-
-<p><img src="2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-
-<p>We can see here most of the headlines contain the words, &ldquo;police&rdquo;, &ldquo;court&rdquo;, &ldquo;council&rdquo;.</p>
-
-<h2 id="network-of-words">Network of Words</h2>
-
-<p>Let&rsquo;s count the words that occur together in the headlines from 2017. Using <code>pair_count</code> function from <code>widyr</code> package, we can count highest co-occurances pair of words.</p>
-
-<pre><code class="language-r">headlines_2017 &lt;- tidy_news %&gt;% 
+    xlab(&quot;Word&quot;)</code></pre>
+<p><img src="/post/2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>We can see here most of the headlines contain the words, “police”, “court”, “council”.</p>
+<div id="network-of-words" class="section level2">
+<h2>Network of Words</h2>
+<p>Let’s count the words that occur together in the headlines from 2017. Using <code>pair_count</code> function from <code>widyr</code> package, we can count highest co-occurances pair of words.</p>
+<pre class="r"><code>headlines_2017 &lt;- tidy_news %&gt;% 
     filter(year == &quot;2017&quot;) %&gt;%
     pairwise_count(word, linenumber, sort = TRUE)  
   
-headlines_2017
-</code></pre>
-
+headlines_2017</code></pre>
 <pre><code>## # A tibble: 792,786 x 3
 ##    item1    item2        n
 ##    &lt;chr&gt;    &lt;chr&gt;    &lt;dbl&gt;
@@ -180,14 +147,10 @@ headlines_2017
 ##  8 wa       election   147
 ##  9 turnbull malcolm    138
 ## 10 malcolm  turnbull   138
-## # ... with 792,776 more rows
-</code></pre>
-
+## # ... with 792,776 more rows</code></pre>
 <p>Donald trump is the highest occurences pair of words in 2017 followed by North Korea which unsurprising as the feud between them bring fear about nuclear war around the world. Also in 2017, Australia vote in favour of legalising same sex marriage which is big news across the country. Hence explains why sex marriage is just below Donald Trump and North Korea in frequency of co-occurences pair of words in 2017 headlines.</p>
-
-<p>Let&rsquo;s plot the network of words occurences:</p>
-
-<pre><code class="language-r">#pairwise count
+<p>Let’s plot the network of words occurences:</p>
+<pre class="r"><code>#pairwise count
 word_pairs &lt;- tidy_news %&gt;%
   group_by(word) %&gt;%
   filter(n() &gt; 5) %&gt;%
@@ -211,26 +174,20 @@ word_pairs %&gt;%
         ggtitle(expression(paste(
                   &quot;Word Network in ABC Headlines From 
                   2003-2017&quot;))) +
-        theme_void()
-</code></pre>
-
-<p><img src="2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-
-<p>Next, we&rsquo;ll look into sentiment analysis of these words so we can understand what type of sentiment have been used in most of these headlines.</p>
-
-<h2 id="sentiment-analysis">Sentiment Analysis</h2>
-
-<p>Now let&rsquo;s investigate sentiment analysis. When we reads a text, we use our understanding of the emotional intent of words to infer wheter a section of words is positive or negative and also categorized it into emotion like anger or joy. Let&rsquo;s use bing lexicon from <code>sentiments</code> dataset to categorized our words into positive or negative sentiment.</p>
-
-<pre><code class="language-r"># create dataframe of words from bing lexicon
+        theme_void()</code></pre>
+<p><img src="/post/2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Next, we’ll look into sentiment analysis of these words so we can understand what type of sentiment have been used in most of these headlines.</p>
+</div>
+<div id="sentiment-analysis" class="section level2">
+<h2>Sentiment Analysis</h2>
+<p>Now let’s investigate sentiment analysis. When we reads a text, we use our understanding of the emotional intent of words to infer wheter a section of words is positive or negative and also categorized it into emotion like anger or joy. Let’s use bing lexicon from <code>sentiments</code> dataset to categorized our words into positive or negative sentiment.</p>
+<pre class="r"><code># create dataframe of words from bing lexicon
 library(tidyr)
 bing &lt;- sentiments %&gt;%
         filter(lexicon == &quot;bing&quot;) %&gt;%
         select(-score)
 
-bing
-</code></pre>
-
+bing</code></pre>
 <pre><code>## # A tibble: 6,788 x 3
 ##    word        sentiment lexicon
 ##    &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;  
@@ -244,12 +201,9 @@ bing
 ##  8 abominate   negative  bing   
 ##  9 abomination negative  bing   
 ## 10 abort       negative  bing   
-## # ... with 6,778 more rows
-</code></pre>
-
+## # ... with 6,778 more rows</code></pre>
 <p>Using <code>inner_join</code> function, we can categorized the words into positive or negative by joining <code>bing</code> dataset.</p>
-
-<pre><code class="language-r"># classified words into positive 
+<pre class="r"><code># classified words into positive 
 ## or negative based on bing lexicon
 news_sentiment &lt;- tidy_news %&gt;%
         inner_join(bing) %&gt;% 
@@ -257,9 +211,7 @@ news_sentiment &lt;- tidy_news %&gt;%
         spread(sentiment, n, fill = 0) %&gt;% 
         mutate(sentiment = positive - negative)
 
-news_sentiment
-</code></pre>
-
+news_sentiment</code></pre>
 <pre><code>## # A tibble: 15 x 4
 ##    year  negative positive sentiment
 ##    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
@@ -277,14 +229,12 @@ news_sentiment
 ## 12 2014     28363    14290    -14073
 ## 13 2015     30389    14673    -15716
 ## 14 2016     24249    11487    -12762
-## 15 2017     14733     7249    - 7484
-</code></pre>
-
-<h2 id="most-common-positive-and-negative-words">Most common positive and negative words</h2>
-
+## 15 2017     14733     7249    - 7484</code></pre>
+</div>
+<div id="most-common-positive-and-negative-words" class="section level2">
+<h2>Most common positive and negative words</h2>
 <p>Now that we have data frame of positive and negative sentiments, we can analyze which words is most common in the positive and negative category. We can filter out <code>NA</code> sentiment or neutral sentiment.</p>
-
-<pre><code class="language-r">word_count &lt;- tidy_news %&gt;%
+<pre class="r"><code>word_count &lt;- tidy_news %&gt;%
   left_join(get_sentiments(&quot;bing&quot;), by = &quot;word&quot;) %&gt;%
   filter(!is.na(sentiment)) %&gt;%
   count(word, sentiment, sort = TRUE) %&gt;% 
@@ -299,9 +249,7 @@ top_sentiments_bing &lt;- word_count %&gt;%
           mutate(word = reorder(word, num)) %&gt;%
           ungroup()
 
-top_sentiments_bing
-</code></pre>
-
+top_sentiments_bing</code></pre>
 <pre><code>## # A tibble: 10 x 4
 ##    word    sentiment     n    num
 ##    &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;  &lt;int&gt;
@@ -314,33 +262,28 @@ top_sentiments_bing
 ##  7 boost   positive   6979   6979
 ##  8 gold    positive   6161   6161
 ##  9 top     positive   5647   5647
-## 10 support positive   5365   5365
-</code></pre>
-
-<p>Let&rsquo;s see top 5 words from positive and negative sentiment.</p>
-
-<pre><code class="language-r">ggplot(top_sentiments_bing, aes(reorder(word, num), num,
+## 10 support positive   5365   5365</code></pre>
+<p>Let’s see top 5 words from positive and negative sentiment.</p>
+<pre class="r"><code>ggplot(top_sentiments_bing, aes(reorder(word, num), num,
                                 fill = sentiment)) +
-  geom_bar(stat = 'identity', alpha = 0.75) + 
+  geom_bar(stat = &#39;identity&#39;, alpha = 0.75) + 
   scale_fill_manual(guide = F, values = c(&quot;black&quot;, 
                                           &quot;darkgreen&quot;)) +
   scale_y_continuous(breaks = pretty_breaks(7)) + 
-  labs(x = '', y = &quot;Number of Occurrences&quot;,
-       title = 'News Headlines Sentiments',
-       subtitle = 'Most Common Positive and Negative Words') +
+  labs(x = &#39;&#39;, y = &quot;Number of Occurrences&quot;,
+       title = &#39;News Headlines Sentiments&#39;,
+       subtitle = &#39;Most Common Positive and Negative Words&#39;) +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1,
                                    size = 14, face = &quot;bold&quot;),
         panel.grid.minor = element_blank(),
         panel.grid.major.x = element_blank(),
-        panel.grid.major.y = element_line(size = 1.1))
-</code></pre>
-
-<p><img src="2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-
-<h2 id="word-cloud-most-common-positive-and-negative-words-in-news-headlines">Word Cloud: Most Common Positive and Negative Words in News Headlines</h2>
-
-<pre><code class="language-r">library(wordcloud)   # to create wordcloud
+        panel.grid.major.y = element_line(size = 1.1))</code></pre>
+<p><img src="/post/2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="word-cloud-most-common-positive-and-negative-words-in-news-headlines" class="section level2">
+<h2>Word Cloud: Most Common Positive and Negative Words in News Headlines</h2>
+<pre class="r"><code>library(wordcloud)   # to create wordcloud
 library(reshape2)    # for acast() function
 
 tidy_news %&gt;%
@@ -348,16 +291,13 @@ tidy_news %&gt;%
   count(word, sentiment, sort = TRUE) %&gt;%
   acast(word ~ sentiment, value.var = &quot;n&quot;, fill = 0) %&gt;%
   comparison.cloud(colors = c(&quot;black&quot;, &quot;darkgreen&quot;), 
-                   title.size = 1.5)
-</code></pre>
-
-<p><img src="2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-
-<h2 id="proportions-of-positive-and-negative-words">Proportions of Positive and Negative Words</h2>
-
-<p>Now let&rsquo;s see the proportions of negative and positive words to entire data set. after filtering out words categorized as neutral, we calculate the frequency by first grouping them along sentiment then counting the rows for each of these groups. Finally, we can calculate the percentage by dividing the sum of all the rows in the data set.</p>
-
-<pre><code class="language-r">sentiment_bing &lt;- tidy_news %&gt;% 
+                   title.size = 1.5)</code></pre>
+<p><img src="/post/2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="proportions-of-positive-and-negative-words" class="section level2">
+<h2>Proportions of Positive and Negative Words</h2>
+<p>Now let’s see the proportions of negative and positive words to entire data set. after filtering out words categorized as neutral, we calculate the frequency by first grouping them along sentiment then counting the rows for each of these groups. Finally, we can calculate the percentage by dividing the sum of all the rows in the data set.</p>
+<pre class="r"><code>sentiment_bing &lt;- tidy_news %&gt;% 
         left_join(get_sentiments(&quot;bing&quot;), by = &quot;word&quot;) %&gt;%
         filter(!is.na(sentiment)) %&gt;%
         group_by(year, sentiment) %&gt;%
@@ -365,9 +305,7 @@ tidy_news %&gt;%
         mutate(percent = n / sum(n)) %&gt;%
         ungroup()
 
-sentiment_bing
-</code></pre>
-
+sentiment_bing</code></pre>
 <pre><code>## # A tibble: 30 x 4
 ##    year  sentiment     n percent
 ##    &lt;chr&gt; &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt;
@@ -381,10 +319,8 @@ sentiment_bing
 ##  8 2006  positive  12123   0.299
 ##  9 2007  negative  32875   0.710
 ## 10 2007  positive  13454   0.290
-## # ... with 20 more rows
-</code></pre>
-
-<pre><code class="language-r">sentiment_bing %&gt;% 
+## # ... with 20 more rows</code></pre>
+<pre class="r"><code>sentiment_bing %&gt;% 
   ggplot(aes(x = year, y = percent, color = sentiment,
              group = sentiment)) + 
   geom_line(size = 1) + 
@@ -400,28 +336,18 @@ sentiment_bing
   theme(axis.text.x = element_text(angle = 45, hjust = 1,
                                    size = 11, face = &quot;bold&quot;),
         axis.title.x = element_blank(),
-        axis.text.y = element_text(size = 11, face = &quot;bold&quot;))
-</code></pre>
-
-<p><img src="2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
-
+        axis.text.y = element_text(size = 11, face = &quot;bold&quot;))</code></pre>
+<p><img src="/post/2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>The proportion of negative sentiment words has been consistently much higher than proportion of positive sentiment words since 2003.</p>
-
-<p>Let&rsquo;s use NRC lexicon for sentimenLet&rsquo;s use NRC lexicon for sentiment analysis. NRC sentiments got list of sentiments way beyond positive and negative, it categorizes words into eight different emotion terms, <code>Anger</code>, <code>Anticipation</code>, <code>Disgust</code>, <code>Fear</code>, <code>Joy</code>, <code>Sadness</code>, <code>Surprise</code>, and <code>Trust</code>.</p>
-
-<pre><code class="language-r">library(RColorBrewer)
+<p>Let’s use NRC lexicon for sentimenLet’s use NRC lexicon for sentiment analysis. NRC sentiments got list of sentiments way beyond positive and negative, it categorizes words into eight different emotion terms, <code>Anger</code>, <code>Anticipation</code>, <code>Disgust</code>, <code>Fear</code>, <code>Joy</code>, <code>Sadness</code>, <code>Surprise</code>, and <code>Trust</code>.</p>
+<pre class="r"><code>library(RColorBrewer)
 cols &lt;- colorRampPalette(brewer.pal(n = 8, name = &quot;Set1&quot;))(8)
 
-cols
-</code></pre>
-
+cols</code></pre>
 <pre><code>## [1] &quot;#E41A1C&quot; &quot;#377EB8&quot; &quot;#4DAF4A&quot; &quot;#984EA3&quot; &quot;#FF7F00&quot; &quot;#FFFF33&quot; &quot;#A65628&quot;
-## [8] &quot;#F781BF&quot;
-</code></pre>
-
-<p>Now, let&rsquo;s plot the distribution of emotion terms on boxplot:</p>
-
-<pre><code class="language-r">cols &lt;- c(&quot;anger&quot; = &quot;#E41A1C&quot;, &quot;sadness&quot; = &quot;#377EB8&quot;,
+## [8] &quot;#F781BF&quot;</code></pre>
+<p>Now, let’s plot the distribution of emotion terms on boxplot:</p>
+<pre class="r"><code>cols &lt;- c(&quot;anger&quot; = &quot;#E41A1C&quot;, &quot;sadness&quot; = &quot;#377EB8&quot;,
           &quot;disgust&quot; = &quot;#4DAF4A&quot;, &quot;fear&quot; = &quot;#984EA3&quot;, 
           &quot;surprise&quot; = &quot;#FF7F00&quot;, &quot;joy&quot; = &quot;#FFFF33&quot;, 
           &quot;anticipation&quot; = &quot;#A65628&quot;, &quot;trust&quot; = &quot;#F781BF&quot;)
@@ -455,14 +381,10 @@ news_nrc %&gt;%
         axis.text.x = element_text(size = 11, 
                                    face = &quot;bold&quot;),
         axis.text.y = element_text(size = 11, 
-                                   face = &quot;bold&quot;))
-</code></pre>
-
-<p><img src="2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
-
+                                   face = &quot;bold&quot;))</code></pre>
+<p><img src="/post/2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Fear has highest percentage in the distribution. Next, we can see how the sentiment emotions of headlines change over time by creating bump chart that plots different sentiment groups</p>
-
-<pre><code class="language-r">news_nrc2 &lt;- tidy_news %&gt;% 
+<pre class="r"><code>news_nrc2 &lt;- tidy_news %&gt;% 
   left_join(get_sentiments(&quot;nrc&quot;), by = &quot;word&quot;) %&gt;% 
   filter(!(sentiment == &quot;negative&quot; | 
              sentiment == &quot;positive&quot;)) %&gt;% 
@@ -492,23 +414,16 @@ news_nrc2 %&gt;%
         axis.title.x = element_blank(),
         axis.text.y = element_text(size = 11, 
                                    face = &quot;bold&quot;)) +
-  scale_color_brewer(palette = &quot;Set1&quot;)
-</code></pre>
-
-<p><img src="2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
-
+  scale_color_brewer(palette = &quot;Set1&quot;)</code></pre>
+<p><img src="/post/2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>We can see that the sentiment changes over time is quite consistent, with fear sentiment already at high level in 2003.</p>
-
-<p>Let&rsquo;s see what are the most words used that are associated with fear:</p>
-
-<pre><code class="language-r">nrc_fear &lt;- get_sentiments(&quot;nrc&quot;) %&gt;% 
+<p>Let’s see what are the most words used that are associated with fear:</p>
+<pre class="r"><code>nrc_fear &lt;- get_sentiments(&quot;nrc&quot;) %&gt;% 
   filter(sentiment == &quot;fear&quot;)
 
 tidy_news %&gt;% 
   inner_join(nrc_fear) %&gt;% 
-  count(word, sort = TRUE)
-</code></pre>
-
+  count(word, sort = TRUE)</code></pre>
 <pre><code>## # A tibble: 1,297 x 2
 ##    word           n
 ##    &lt;chr&gt;      &lt;int&gt;
@@ -522,36 +437,27 @@ tidy_news %&gt;%
 ##  8 accused     8017
 ##  9 government  7752
 ## 10 missing     7514
-## # ... with 1,287 more rows
-</code></pre>
-
-<p>&ldquo;police&rdquo;, &ldquo;fire&rdquo;, &ldquo;crash&rdquo; are few of words associated with fear with the word &ldquo;court&rdquo; being the highest count.</p>
-
-<h2 id="comparing-how-sentiments-differ-across-the-sentiment-libraries">Comparing how sentiments differ across the sentiment libraries</h2>
-
-<p>There&rsquo;s three options for sentiment lexicons, let&rsquo;s see how the three sentiment lexicon differ when used for these headlines.</p>
-
-<p>First, let&rsquo;s see how many positive and negative words each lexicon categorized.</p>
-
-<h3 id="bing">Bing</h3>
-
-<pre><code class="language-r">get_sentiments(&quot;bing&quot;) %&gt;% 
-  count(sentiment)
-</code></pre>
-
+## # ... with 1,287 more rows</code></pre>
+<p>“police”, “fire”, “crash” are few of words associated with fear with the word “court” being the highest count.</p>
+</div>
+<div id="comparing-how-sentiments-differ-across-the-sentiment-libraries" class="section level2">
+<h2>Comparing how sentiments differ across the sentiment libraries</h2>
+<p>There’s three options for sentiment lexicons, let’s see how the three sentiment lexicon differ when used for these headlines.</p>
+<p>First, let’s see how many positive and negative words each lexicon categorized.</p>
+<div id="bing" class="section level3">
+<h3>Bing</h3>
+<pre class="r"><code>get_sentiments(&quot;bing&quot;) %&gt;% 
+  count(sentiment)</code></pre>
 <pre><code>## # A tibble: 2 x 2
 ##   sentiment     n
 ##   &lt;chr&gt;     &lt;int&gt;
 ## 1 negative   4782
-## 2 positive   2006
-</code></pre>
-
-<h3 id="nrc">NRC</h3>
-
-<pre><code class="language-r">get_sentiments(&quot;nrc&quot;) %&gt;% 
-  count(sentiment)
-</code></pre>
-
+## 2 positive   2006</code></pre>
+</div>
+<div id="nrc" class="section level3">
+<h3>NRC</h3>
+<pre class="r"><code>get_sentiments(&quot;nrc&quot;) %&gt;% 
+  count(sentiment)</code></pre>
 <pre><code>## # A tibble: 10 x 2
 ##    sentiment        n
 ##    &lt;chr&gt;        &lt;int&gt;
@@ -564,40 +470,29 @@ tidy_news %&gt;%
 ##  7 positive      2312
 ##  8 sadness       1191
 ##  9 surprise       534
-## 10 trust         1231
-</code></pre>
-
+## 10 trust         1231</code></pre>
 <ul>
 <li>Bing: there are 4782 words that can be categorized as negative, and 2006 positive.</li>
 <li>NRC : there are 3324 words that are categorized as negative, and 2312 positive.</li>
 </ul>
-
 <p>The proportion of negative words in Bing lexicon is much higher than proportion of negative words in NRC lexicon.</p>
-
-<p>Let&rsquo;s count how many words in the lyrics are categorized for each sentiment:</p>
-
-<pre><code class="language-r"># Bing lexicon
+<p>Let’s count how many words in the lyrics are categorized for each sentiment:</p>
+<pre class="r"><code># Bing lexicon
 tidy_news %&gt;%
   left_join(get_sentiments(&quot;bing&quot;), by = &quot;word&quot;) %&gt;%
   group_by(sentiment) %&gt;% 
-  summarize(sum = n())
-</code></pre>
-
+  summarize(sum = n())</code></pre>
 <pre><code>## # A tibble: 3 x 2
 ##   sentiment     sum
 ##   &lt;chr&gt;       &lt;int&gt;
 ## 1 negative   438340
 ## 2 positive   193549
-## 3 &lt;NA&gt;      4652959
-</code></pre>
-
-<pre><code class="language-r"># nrc lexicon
+## 3 &lt;NA&gt;      4652959</code></pre>
+<pre class="r"><code># nrc lexicon
 tidy_news %&gt;% 
   left_join(get_sentiments(&quot;nrc&quot;), by = &quot;word&quot;) %&gt;% 
   group_by(sentiment) %&gt;% 
-  summarize(sum = n())
-</code></pre>
-
+  summarize(sum = n())</code></pre>
 <pre><code>## # A tibble: 11 x 2
 ##    sentiment        sum
 ##    &lt;chr&gt;          &lt;int&gt;
@@ -611,56 +506,42 @@ tidy_news %&gt;%
 ##  8 sadness       267342
 ##  9 surprise      148211
 ## 10 trust         359605
-## 11 &lt;NA&gt;         3982132
-</code></pre>
-
+## 11 &lt;NA&gt;         3982132</code></pre>
 <ul>
 <li>For Bing: 193, 549 words are categorized as negative and 193,549 words are positive.</li>
-<li>For NRC: 549191 words are categorized as negative and 512,498 positive
-<br /></li>
+<li>For NRC: 549191 words are categorized as negative and 512,498 positive</li>
 </ul>
-
 <p>In summary, NRC lexicon managed to categorized the words much more than Bing lexicon did.</p>
-
-<p>Let’s see how AFINN lexicon categorized the words now, as it&rsquo;s the only lexicon we haven’t touched yet in the tidytext package! The AFINN lexicon gives a score from -5 (for negative sentiment) to +5 (positive sentiment).</p>
-
-<h3 id="afinn">AFINN</h3>
-
-<pre><code class="language-r">headlines_afinn &lt;- tidy_news %&gt;% 
+<p>Let’s see how AFINN lexicon categorized the words now, as it’s the only lexicon we haven’t touched yet in the tidytext package! The AFINN lexicon gives a score from -5 (for negative sentiment) to +5 (positive sentiment).</p>
+</div>
+<div id="afinn" class="section level3">
+<h3>AFINN</h3>
+<pre class="r"><code>headlines_afinn &lt;- tidy_news %&gt;% 
   left_join(get_sentiments(&quot;afinn&quot;), by = &quot;word&quot;) %&gt;%
-  filter(!grepl('[0-9]', word))
+  filter(!grepl(&#39;[0-9]&#39;, word))
   
 # count NA category
 headlines_afinn %&gt;%
-    summarize(NAs= sum(is.na(score)))
-</code></pre>
-
+    summarize(NAs= sum(is.na(score)))</code></pre>
 <pre><code>## # A tibble: 1 x 1
 ##       NAs
 ##     &lt;int&gt;
-## 1 4532575
-</code></pre>
-
-<pre><code class="language-r">headlines_afinn %&gt;% 
+## 1 4532575</code></pre>
+<pre class="r"><code>headlines_afinn %&gt;% 
   select(score) %&gt;% 
   mutate(sentiment = if_else(score &gt; 0, 
                              &quot;positive&quot;, &quot;negative&quot;, 
                              &quot;NA&quot;)) %&gt;% 
   group_by(sentiment) %&gt;% 
-  summarize(sum = n())
-</code></pre>
-
+  summarize(sum = n())</code></pre>
 <pre><code>## # A tibble: 3 x 2
 ##   sentiment     sum
 ##   &lt;chr&gt;       &lt;int&gt;
 ## 1 NA        4532575
 ## 2 negative   464364
-## 3 positive   202843
-</code></pre>
-
-<p>There are 4,532,575 words out of 5, 199, 782 words that was not categorized by AFINN. Let&rsquo;s visualize scoring ability of each lexicon.</p>
-
-<pre><code class="language-r">afinn_scores &lt;- headlines_afinn %&gt;% 
+## 3 positive   202843</code></pre>
+<p>There are 4,532,575 words out of 5, 199, 782 words that was not categorized by AFINN. Let’s visualize scoring ability of each lexicon.</p>
+<pre class="r"><code>afinn_scores &lt;- headlines_afinn %&gt;% 
   replace_na(replace = list(score = 0)) %&gt;%
   group_by(index = linenumber %/% 10000) %&gt;% 
   summarize(sentiment = sum(score)) %&gt;% 
@@ -690,9 +571,7 @@ all_lexicons &lt;- bind_rows(afinn_scores, bing_nrc_scores)
 lexicon_cols &lt;- c(&quot;AFINN&quot; = &quot;#E41A1C&quot;, 
                   &quot;NRC&quot; = &quot;#377EB8&quot;, &quot;Bing&quot; = &quot;#4DAF4A&quot;)
 
-all_lexicons
-</code></pre>
-
+all_lexicons</code></pre>
 <pre><code>## # A tibble: 330 x 5
 ##    index sentiment lexicon negative positive
 ##    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;
@@ -706,10 +585,8 @@ all_lexicons
 ##  8  7.00     -4659 AFINN         NA       NA
 ##  9  8.00     -5018 AFINN         NA       NA
 ## 10  9.00     -5087 AFINN         NA       NA
-## # ... with 320 more rows
-</code></pre>
-
-<pre><code class="language-r">all_lexicons %&gt;% 
+## # ... with 320 more rows</code></pre>
+<pre class="r"><code>all_lexicons %&gt;% 
   ggplot(aes(index, sentiment, fill = lexicon)) +
   geom_col() +
   facet_wrap(~lexicon, ncol = 1, scales = &quot;free_y&quot;) +
@@ -719,20 +596,18 @@ all_lexicons
   labs(x = &quot;Index of All Headlines From 2003-2017&quot;,
        y = &quot;Sentiment Score&quot;) +
   theme_bw() +
-  theme(axis.text.x = element_blank())
-</code></pre>
-
-<p><img src="2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
-
-<p>We can see that <strong>AFINN</strong> and <strong>Bing</strong> lexicon sentiment across the years have been negative, there&rsquo;s really no positive sentiment at all! But we can see in the latest index the negative score is really small, is the trend changing? we need more data to confirm that.</p>
-
+  theme(axis.text.x = element_blank())</code></pre>
+<p><img src="/post/2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p>We can see that <strong>AFINN</strong> and <strong>Bing</strong> lexicon sentiment across the years have been negative, there’s really no positive sentiment at all! But we can see in the latest index the negative score is really small, is the trend changing? we need more data to confirm that.</p>
 <p>Generally, across all lexicon, the sentiment of the headlines has all been negative.</p>
-
-<h2 id="summary">Summary</h2>
-
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
 <p>We can see from the analysis that negative sentiment has been dominating media headlines in Australia since 2013 with fear being the dominating theme emotion. Most of these negative sentiment came from reporting of crime, automobile crash etc.These types of headlines are the most appealing to readers, hence why their term frequencies are high. However, the 3 lexicons we used in this analysis failed to categorized so many words in all the headlines. To be exact, there are <strong>4,652,959</strong>, <strong>3,982,132</strong>, and <strong>4,532,575</strong> words that are not categorized by <strong>Bing</strong>, <strong>NRC</strong>, and <strong>AFINN</strong> lexicon consecutively.</p>
-
 <p>It is important to note that lexicons in the <code>tidytext</code> package are not the be all and end all for text/sentiment analysis. One can even create their own lexicons through crowd-sourcing (such as Amazon Mechanical-Turk, which is how some of the lexicons shown here were created), from utilizing word lists accrued by your own company throughout the years dealing with customer/employee feedback, etc. It would be interesting to compare this datasets with headlines from another country. For example, we can compare the most focused term used by headlines in different country using the tf-idf statistic. But bfore that, i have to build more foundational skills in text mining by going through this amazing book by Julia Silge, <a href="http://tidytextmining.com">Text Mining With R</a>.</p>
+</div>
+</div>
 
 </main>
 
