@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on A blog on Data</title>
-    <link>/categories/</link>
+    <link>https://akmal.rbind.io/categories/</link>
     <description>Recent content in Categories on A blog on Data</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://akmal.rbind.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Project</title>
-      <link>/categories/project/</link>
+      <link>https://akmal.rbind.io/categories/project/</link>
       <pubDate>Sun, 26 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>/categories/project/</guid>
+      <guid>https://akmal.rbind.io/categories/project/</guid>
       <description></description>
     </item>
     

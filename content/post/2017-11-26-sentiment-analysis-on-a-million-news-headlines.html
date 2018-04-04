@@ -52,18 +52,18 @@ news</code></pre>
 
 news</code></pre>
 <pre><code>## # A tibble: 1,093,281 x 4
-##    publish_date headline_text                              year  linenumb…
-##           &lt;int&gt; &lt;chr&gt;                                      &lt;chr&gt;     &lt;int&gt;
-##  1     20030219 aba decides against community broadcastin… 2003          1
-##  2     20030219 act fire witnesses must be aware of defam… 2003          2
-##  3     20030219 a g calls for infrastructure protection s… 2003          3
-##  4     20030219 air nz staff in aust strike for pay rise   2003          4
-##  5     20030219 air nz strike to affect australian travel… 2003          5
-##  6     20030219 ambitious olsson wins triple jump          2003          6
-##  7     20030219 antic delighted with record breaking barca 2003          7
-##  8     20030219 aussie qualifier stosur wastes four memph… 2003          8
-##  9     20030219 aust addresses un security council over i… 2003          9
-## 10     20030219 australia is locked into war timetable opp 2003         10
+##    publish_date headline_text                             year  linenumber
+##           &lt;int&gt; &lt;chr&gt;                                     &lt;chr&gt;      &lt;int&gt;
+##  1     20030219 aba decides against community broadcasti… 2003           1
+##  2     20030219 act fire witnesses must be aware of defa… 2003           2
+##  3     20030219 a g calls for infrastructure protection … 2003           3
+##  4     20030219 air nz staff in aust strike for pay rise  2003           4
+##  5     20030219 air nz strike to affect australian trave… 2003           5
+##  6     20030219 ambitious olsson wins triple jump         2003           6
+##  7     20030219 antic delighted with record breaking bar… 2003           7
+##  8     20030219 aussie qualifier stosur wastes four memp… 2003           8
+##  9     20030219 aust addresses un security council over … 2003           9
+## 10     20030219 australia is locked into war timetable o… 2003          10
 ## # ... with 1,093,271 more rows</code></pre>
 <p>we can use <code>unnest_tokens</code> to separate each line into words. The default tokenizing is for words, but other options include characters, sentences, lines, paragraphs, or separation around regex pattern.</p>
 <pre class="r"><code>tidy_news &lt;- news %&gt;% 
@@ -114,16 +114,16 @@ headlines_2017</code></pre>
 <pre><code>## # A tibble: 792,786 x 3
 ##    item1    item2        n
 ##    &lt;chr&gt;    &lt;chr&gt;    &lt;dbl&gt;
-##  1 trump    donald     476
-##  2 donald   trump      476
-##  3 korea    north      238
-##  4 north    korea      238
-##  5 marriage sex        156
-##  6 sex      marriage   156
-##  7 election wa         147
-##  8 wa       election   147
-##  9 turnbull malcolm    138
-## 10 malcolm  turnbull   138
+##  1 trump    donald    476.
+##  2 donald   trump     476.
+##  3 korea    north     238.
+##  4 north    korea     238.
+##  5 marriage sex       156.
+##  6 sex      marriage  156.
+##  7 election wa        147.
+##  8 wa       election  147.
+##  9 turnbull malcolm   138.
+## 10 malcolm  turnbull  138.
 ## # ... with 792,776 more rows</code></pre>
 <p>Donald trump is the highest occurences pair of words in 2017 followed by North Korea which unsurprising as the feud between them bring fear about nuclear war around the world. Also in 2017, Australia vote in favour of legalising same sex marriage which is big news across the country. Hence explains why sex marriage is just below Donald Trump and North Korea in frequency of co-occurences pair of words in 2017 headlines.</p>
 <p>Let’s plot the network of words occurences:</p>
@@ -192,21 +192,21 @@ news_sentiment</code></pre>
 <pre><code>## # A tibble: 15 x 4
 ##    year  negative positive sentiment
 ##    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-##  1 2003     26303    12604    -13699
-##  2 2004     31093    14291    -16802
-##  3 2005     31705    13522    -18183
-##  4 2006     28471    12123    -16348
-##  5 2007     32875    13454    -19421
-##  6 2008     34001    14123    -19878
-##  7 2009     32679    13069    -19610
-##  8 2010     31273    12589    -18684
-##  9 2011     30169    11997    -18172
-## 10 2012     30152    13555    -16597
-## 11 2013     31885    14523    -17362
-## 12 2014     28363    14290    -14073
-## 13 2015     30389    14673    -15716
-## 14 2016     24249    11487    -12762
-## 15 2017     14733     7249    - 7484</code></pre>
+##  1 2003    26303.   12604.   -13699.
+##  2 2004    31093.   14291.   -16802.
+##  3 2005    31705.   13522.   -18183.
+##  4 2006    28471.   12123.   -16348.
+##  5 2007    32875.   13454.   -19421.
+##  6 2008    34001.   14123.   -19878.
+##  7 2009    32679.   13069.   -19610.
+##  8 2010    31273.   12589.   -18684.
+##  9 2011    30169.   11997.   -18172.
+## 10 2012    30152.   13555.   -16597.
+## 11 2013    31885.   14523.   -17362.
+## 12 2014    28363.   14290.   -14073.
+## 13 2015    30389.   14673.   -15716.
+## 14 2016    24249.   11487.   -12762.
+## 15 2017    14733.    7249.    -7484.</code></pre>
 </div>
 <div id="most-common-positive-and-negative-words" class="section level2">
 <h2>Most common positive and negative words</h2>
@@ -232,10 +232,10 @@ top_sentiments_bing</code></pre>
 ##    &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;  &lt;int&gt;
 ##  1 crash   negative  11103 -11103
 ##  2 death   negative  11052 -11052
-##  3 murder  negative   9105 - 9105
+##  3 murder  negative   9105  -9105
 ##  4 win     positive   8246   8246
-##  5 killed  negative   8058 - 8058
-##  6 attack  negative   7082 - 7082
+##  5 killed  negative   8058  -8058
+##  6 attack  negative   7082  -7082
 ##  7 boost   positive   6979   6979
 ##  8 gold    positive   6161   6161
 ##  9 top     positive   5647   5647
@@ -316,7 +316,7 @@ sentiment_bing</code></pre>
         axis.text.y = element_text(size = 11, face = &quot;bold&quot;))</code></pre>
 <p><img src="/post/2017-11-26-sentiment-analysis-on-a-million-news-headlines_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>The proportion of negative sentiment words has been consistently much higher than proportion of positive sentiment words since 2003.</p>
-<p>Let’s use NRC lexicon for sentimenLet’s use NRC lexicon for sentiment analysis. NRC sentiments got list of sentiments way beyond positive and negative, it categorizes words into eight different emotion terms, <code>Anger</code>, <code>Anticipation</code>, <code>Disgust</code>, <code>Fear</code>, <code>Joy</code>, <code>Sadness</code>, <code>Surprise</code>, and <code>Trust</code>.</p>
+<p>Let’s use NRC lexicon for sentiment analysis. NRC sentiments got list of sentiments way beyond positive and negative, it categorizes words into eight different emotion terms, <code>Anger</code>, <code>Anticipation</code>, <code>Disgust</code>, <code>Fear</code>, <code>Joy</code>, <code>Sadness</code>, <code>Surprise</code>, and <code>Trust</code>.</p>
 <pre class="r"><code>library(RColorBrewer)
 cols &lt;- colorRampPalette(brewer.pal(n = 8, name = &quot;Set1&quot;))(8)
 
@@ -350,8 +350,7 @@ news_nrc %&gt;%
   scale_y_continuous(breaks = pretty_breaks(5), 
                      labels = percent_format()) +
   scale_fill_manual(values = cols) +
-  ggtitle(&quot;Distribution of Emotion Terms&quot;, 
-          subtitle = &quot;n = 11 (Albums)&quot;) +
+  ggtitle(&quot;Distribution of Emotion Terms&quot;) +
   labs(x = &quot;Emotion Term&quot;, y = &quot;Percentage&quot;) +
   theme_bw() +
   theme(legend.position = &quot;none&quot;,
@@ -383,7 +382,7 @@ news_nrc2 %&gt;%
                      labels = percent_format()) +
   xlab(&quot;Year&quot;) + ylab(&quot;Proportion of Emotion Words&quot;) +
   ggtitle(&quot;News Headlines Sentiments Across Years&quot;, 
-          subtitle = &quot;From 2000-2016&quot;) +
+          subtitle = &quot;From 2003-2017&quot;) +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, 
                                    hjust = 1, size = 11, 
@@ -552,25 +551,24 @@ all_lexicons</code></pre>
 <pre><code>## # A tibble: 330 x 5
 ##    index sentiment lexicon negative positive
 ##    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;
-##  1  0        -5364 AFINN         NA       NA
-##  2  1.00     -3761 AFINN         NA       NA
-##  3  2.00     -3952 AFINN         NA       NA
-##  4  3.00     -4294 AFINN         NA       NA
-##  5  4.00     -4481 AFINN         NA       NA
-##  6  5.00     -4077 AFINN         NA       NA
-##  7  6.00     -4979 AFINN         NA       NA
-##  8  7.00     -4659 AFINN         NA       NA
-##  9  8.00     -5018 AFINN         NA       NA
-## 10  9.00     -5087 AFINN         NA       NA
+##  1    0.    -5364. AFINN         NA       NA
+##  2    1.    -3761. AFINN         NA       NA
+##  3    2.    -3952. AFINN         NA       NA
+##  4    3.    -4294. AFINN         NA       NA
+##  5    4.    -4481. AFINN         NA       NA
+##  6    5.    -4077. AFINN         NA       NA
+##  7    6.    -4979. AFINN         NA       NA
+##  8    7.    -4659. AFINN         NA       NA
+##  9    8.    -5018. AFINN         NA       NA
+## 10    9.    -5087. AFINN         NA       NA
 ## # ... with 320 more rows</code></pre>
 <pre class="r"><code>all_lexicons %&gt;% 
   ggplot(aes(index, sentiment, fill = lexicon)) +
   geom_col() +
   facet_wrap(~lexicon, ncol = 1, scales = &quot;free_y&quot;) +
   scale_fill_manual(values = lexicon_cols) +
-  ggtitle(&quot;Comparison of Sentiments&quot;, 
-          subtitle = &quot; Along Song-Order&quot;) +
-  labs(x = &quot;Index of All Headlines From 2003-2017&quot;,
+  ggtitle(&quot;Comparison of Sentiments&quot;) +
+  labs(x = &quot;Index of All Headlines From 2003-2017&quot; ,
        y = &quot;Sentiment Score&quot;) +
   theme_bw() +
   theme(axis.text.x = element_blank())</code></pre>
@@ -582,6 +580,6 @@ all_lexicons</code></pre>
 <div id="summary" class="section level2">
 <h2>Summary</h2>
 <p>We can see from the analysis that negative sentiment has been dominating media headlines in Australia since 2013 with fear being the dominating theme emotion. Most of these negative sentiment came from reporting of crime, automobile crash etc.These types of headlines are the most appealing to readers, hence why their term frequencies are high. However, the 3 lexicons we used in this analysis failed to categorized so many words in all the headlines. To be exact, there are <strong>4,652,959</strong>, <strong>3,982,132</strong>, and <strong>4,532,575</strong> words that are not categorized by <strong>Bing</strong>, <strong>NRC</strong>, and <strong>AFINN</strong> lexicon consecutively.</p>
-<p>It is important to note that lexicons in the <code>tidytext</code> package are not the be all and end all for text/sentiment analysis. One can even create their own lexicons through crowd-sourcing (such as Amazon Mechanical-Turk, which is how some of the lexicons shown here were created), from utilizing word lists accrued by your own company throughout the years dealing with customer/employee feedback, etc. It would be interesting to compare this datasets with headlines from another country. For example, we can compare the most focused term used by headlines in different country using the tf-idf statistic. But before that, i have to build more foundational skills in text mining by going through this amazing book by Julia Silge, <a href="http://tidytextmining.com">Text Mining With R</a>.</p>
+<p>It is important to note that lexicons in the <code>tidytext</code> package are not the be all and end all for text/sentiment analysis. One can even create their own lexicons through crowd-sourcing (such as Amazon Mechanical-Turk, which is how some of the lexicons shown here were created), from utilizing word lists accrued by your own company throughout the years dealing with customer/employee feedback, etc. It would be interesting to compare this datasets with headlines from another country. For example, we can compare the most focused term used by headlines in different country using the tf-idf statistic.</p>
 </div>
 </div>
