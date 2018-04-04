@@ -472,8 +472,7 @@ all_lexicons %>%
   geom_col() +
   facet_wrap(~lexicon, ncol = 1, scales = "free_y") +
   scale_fill_manual(values = lexicon_cols) +
-  ggtitle("Comparison of Sentiments", 
-          subtitle = " Along Song-Order") +
+  ggtitle("Comparison of Sentiments") +
   labs(x = "Index of All Headlines From 2003-2017",
        y = "Sentiment Score") +
   theme_bw() +
