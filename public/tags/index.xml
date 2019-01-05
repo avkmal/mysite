@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on A blog on Data</title>
-    <link>https://akmal.rbind.io/tags/</link>
-    <description>Recent content in Tags on A blog on Data</description>
+    <title>Tags on Dataaaaa</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on Dataaaaa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 26 Nov 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://akmal.rbind.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Sentiment Analysis</title>
-      <link>https://akmal.rbind.io/tags/sentiment-analysis/</link>
+      <link>/tags/sentiment-analysis/</link>
       <pubDate>Sun, 26 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://akmal.rbind.io/tags/sentiment-analysis/</guid>
+      <guid>/tags/sentiment-analysis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Text Mining</title>
-      <link>https://akmal.rbind.io/tags/text-mining/</link>
+      <link>/tags/text-mining/</link>
       <pubDate>Sun, 26 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://akmal.rbind.io/tags/text-mining/</guid>
+      <guid>/tags/text-mining/</guid>
       <description></description>
     </item>
     
