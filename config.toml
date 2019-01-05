@@ -1,6 +1,6 @@
 baseurl = "https://akmalrashid.com/"
 languageCode = "en-us"
-title = "Dataaaaa"
+title = 
 theme = "hugo-xmin"
 googleAnalytics = ""
 disqusShortname = ""
@@ -30,5 +30,5 @@ footnotereturnlinkcontents = "↩"
     weight = 4
 
 [params]
-    description = "A website built through Hugo and blogdown."
+    description = "A website built using Hugo and blogdown."
     footer = "&copy; [Akmal Abdul Rashid](https://akmalrashid.com/) 2017 | [Github](https://github.com/avkmal) | [Email](https://mail.google.com/mail/?fs=1&view=cm&shva=1&to=akmalabdulrashid@gmail.com)"

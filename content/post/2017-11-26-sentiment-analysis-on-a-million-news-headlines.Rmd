@@ -4,7 +4,7 @@ author: ''
 date: '2017-11-26'
 slug: sentiment-analysis-of-a-million-news-headlines
 categories: [Project]
-tags: [Sentiment Analysis, Text Mining]
+tags: [Sentiment Analysis, Text Mining, R]
 ---
 
 I've just finished [R for Data Science](http://r4ds.had.co.nz/) by Hadley Wickham and just started [Text mining With R](http://tidytextmining.com/) by Julia Silge. So I figured it's about time i do some data analysis to apply the skills I learned. I decided to do sentiment analysis after reading this [post](https://juliasilge.com/blog/life-changing-magic/) by Julia Silge.
