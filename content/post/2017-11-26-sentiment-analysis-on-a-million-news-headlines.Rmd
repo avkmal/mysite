@@ -89,7 +89,7 @@ We can see here most of the headlines contain the words, "police", "court", "cou
 
 ## Network of Words
 
-Let's count the words that occur together in the headlines from 2017. Using `pair_count` function from `widyr` package, we can count highest co-occurances pair of words.
+Let's count the words that occur together in the headlines from 2017. Using `pairwise_count` function from `widyr` package, we can count highest co-occurances pair of words.
 
 ```{r message=FALSE}
 headlines_2017 <- tidy_news %>% 
@@ -383,7 +383,7 @@ get_sentiments("nrc") %>%
 
 The proportion of negative words in Bing lexicon is much higher than proportion of negative words in NRC lexicon.
 
-Let's count how many words in the lyrics are categorized for each sentiment:
+Let's count how many words in our text are categorized for each sentiment:
 
 ```{r}
 # Bing lexicon
