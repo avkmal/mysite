@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sentiment Analysis of A Million News Headlines | Dataaaaa</title>
+    <title>Sentiment Analysis of A Million News Headlines | Dataaa</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     
@@ -53,9 +53,9 @@ library(reshape2)</code></pre>
 <pre class="r"><code># import data
 news &lt;- as.tibble(read_csv(here(&quot;abcnews-date-text.csv&quot;)))
 news</code></pre>
-<pre><code>## # A tibble: 1,093,281 x 2
+<pre><code>## # A tibble: 1,103,665 x 2
 ##    publish_date headline_text                                     
-##           &lt;int&gt; &lt;chr&gt;                                             
+##           &lt;dbl&gt; &lt;chr&gt;                                             
 ##  1     20030219 aba decides against community broadcasting licence
 ##  2     20030219 act fire witnesses must be aware of defamation    
 ##  3     20030219 a g calls for infrastructure protection summit    
@@ -66,7 +66,7 @@ news</code></pre>
 ##  8     20030219 aussie qualifier stosur wastes four memphis match 
 ##  9     20030219 aust addresses un security council over iraq      
 ## 10     20030219 australia is locked into war timetable opp        
-## # ... with 1,093,271 more rows</code></pre>
+## # ... with 1,103,655 more rows</code></pre>
 <div id="term-frequency" class="section level1">
 <h1>Term Frequency</h1>
 <p>One of the common task in text mining is to look at word frequencies. Let’s analyze word frequencies in all of the headlines</p>
@@ -77,9 +77,9 @@ news</code></pre>
                 linenumber = row_number())
 
 news</code></pre>
-<pre><code>## # A tibble: 1,093,281 x 4
+<pre><code>## # A tibble: 1,103,665 x 4
 ##    publish_date headline_text                             year  linenumber
-##           &lt;int&gt; &lt;chr&gt;                                     &lt;chr&gt;      &lt;int&gt;
+##           &lt;dbl&gt; &lt;chr&gt;                                     &lt;chr&gt;      &lt;int&gt;
 ##  1     20030219 aba decides against community broadcasti… 2003           1
 ##  2     20030219 act fire witnesses must be aware of defa… 2003           2
 ##  3     20030219 a g calls for infrastructure protection … 2003           3
@@ -90,15 +90,15 @@ news</code></pre>
 ##  8     20030219 aussie qualifier stosur wastes four memp… 2003           8
 ##  9     20030219 aust addresses un security council over … 2003           9
 ## 10     20030219 australia is locked into war timetable o… 2003          10
-## # ... with 1,093,271 more rows</code></pre>
+## # ... with 1,103,655 more rows</code></pre>
 <p>we can use <code>unnest_tokens</code> to separate each line into words. The default tokenizing is for words, but other options include characters, sentences, lines, paragraphs, or separation around regex pattern.</p>
 <pre class="r"><code>tidy_news &lt;- news %&gt;% 
         unnest_tokens(word, headline_text)
 
 tidy_news</code></pre>
-<pre><code>## # A tibble: 6,988,120 x 4
+<pre><code>## # A tibble: 7,070,525 x 4
 ##    publish_date year  linenumber word        
-##           &lt;int&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;       
+##           &lt;dbl&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;       
 ##  1     20030219 2003           1 aba         
 ##  2     20030219 2003           1 decides     
 ##  3     20030219 2003           1 against     
@@ -109,7 +109,7 @@ tidy_news</code></pre>
 ##  8     20030219 2003           2 fire        
 ##  9     20030219 2003           2 witnesses   
 ## 10     20030219 2003           2 must        
-## # ... with 6,988,110 more rows</code></pre>
+## # ... with 7,070,515 more rows</code></pre>
 <p>Now we can manipulate the data and do term frequency analysis. First, let’s remove stop words which can be obtain from dataset <code>stop_words</code> with the function <code>anti_join</code>. Stop words are words which do not contain important significance. We filter out stop words as it could affect our analysis.</p>
 <pre class="r"><code># remove stopwords
 
@@ -131,26 +131,26 @@ tidy_news %&gt;%
 <p>We can see here most of the headlines contain the words, “police”, “court”, “council”.</p>
 <div id="network-of-words" class="section level2">
 <h2>Network of Words</h2>
-<p>Let’s count the words that occur together in the headlines from 2017. Using <code>pair_count</code> function from <code>widyr</code> package, we can count highest co-occurances pair of words.</p>
+<p>Let’s count the words that occur together in the headlines from 2017. Using <code>pairwise_count</code> function from <code>widyr</code> package, we can count highest co-occurances pair of words.</p>
 <pre class="r"><code>headlines_2017 &lt;- tidy_news %&gt;% 
     filter(year == &quot;2017&quot;) %&gt;%
     pairwise_count(word, linenumber, sort = TRUE)  
   
 headlines_2017</code></pre>
-<pre><code>## # A tibble: 792,786 x 3
+<pre><code>## # A tibble: 1,004,826 x 3
 ##    item1    item2        n
 ##    &lt;chr&gt;    &lt;chr&gt;    &lt;dbl&gt;
-##  1 trump    donald    476.
-##  2 donald   trump     476.
-##  3 korea    north     238.
-##  4 north    korea     238.
-##  5 marriage sex       156.
-##  6 sex      marriage  156.
-##  7 election wa        147.
-##  8 wa       election  147.
-##  9 turnbull malcolm   138.
-## 10 malcolm  turnbull  138.
-## # ... with 792,776 more rows</code></pre>
+##  1 trump    donald     612
+##  2 donald   trump      612
+##  3 korea    north      301
+##  4 north    korea      301
+##  5 marriage sex        285
+##  6 sex      marriage   285
+##  7 turnbull malcolm    197
+##  8 malcolm  turnbull   197
+##  9 election wa         149
+## 10 wa       election   149
+## # ... with 1,004,816 more rows</code></pre>
 <p>Donald trump is the highest occurences pair of words in 2017 followed by North Korea which unsurprising as the feud between them bring fear about nuclear war around the world. Also in 2017, Australia vote in favour of legalising same sex marriage which is big news across the country. Hence explains why sex marriage is just below Donald Trump and North Korea in frequency of co-occurences pair of words in 2017 headlines.</p>
 <p>Let’s plot the network of words occurences:</p>
 <pre class="r"><code>#pairwise count
@@ -218,21 +218,21 @@ news_sentiment</code></pre>
 <pre><code>## # A tibble: 15 x 4
 ##    year  negative positive sentiment
 ##    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-##  1 2003    26303.   12604.   -13699.
-##  2 2004    31093.   14291.   -16802.
-##  3 2005    31705.   13522.   -18183.
-##  4 2006    28471.   12123.   -16348.
-##  5 2007    32875.   13454.   -19421.
-##  6 2008    34001.   14123.   -19878.
-##  7 2009    32679.   13069.   -19610.
-##  8 2010    31273.   12589.   -18684.
-##  9 2011    30169.   11997.   -18172.
-## 10 2012    30152.   13555.   -16597.
-## 11 2013    31885.   14523.   -17362.
-## 12 2014    28363.   14290.   -14073.
-## 13 2015    30389.   14673.   -15716.
-## 14 2016    24249.   11487.   -12762.
-## 15 2017    14733.    7249.    -7484.</code></pre>
+##  1 2003     26303    12604    -13699
+##  2 2004     31093    14291    -16802
+##  3 2005     31705    13522    -18183
+##  4 2006     28471    12123    -16348
+##  5 2007     32875    13454    -19421
+##  6 2008     34001    14123    -19878
+##  7 2009     32679    13069    -19610
+##  8 2010     31273    12589    -18684
+##  9 2011     30169    11997    -18172
+## 10 2012     30152    13555    -16597
+## 11 2013     31884    14523    -17361
+## 12 2014     28363    14290    -14073
+## 13 2015     30389    14673    -15716
+## 14 2016     24249    11487    -12762
+## 15 2017     19247     9208    -10039</code></pre>
 </div>
 <div id="most-common-positive-and-negative-words" class="section level2">
 <h2>Most common positive and negative words</h2>
@@ -256,16 +256,16 @@ top_sentiments_bing</code></pre>
 <pre><code>## # A tibble: 10 x 4
 ##    word    sentiment     n    num
 ##    &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;  &lt;int&gt;
-##  1 crash   negative  11103 -11103
-##  2 death   negative  11052 -11052
-##  3 murder  negative   9105  -9105
-##  4 win     positive   8246   8246
-##  5 killed  negative   8058  -8058
-##  6 attack  negative   7082  -7082
-##  7 boost   positive   6979   6979
-##  8 gold    positive   6161   6161
-##  9 top     positive   5647   5647
-## 10 support positive   5365   5365</code></pre>
+##  1 crash   negative  11208 -11208
+##  2 death   negative  11173 -11173
+##  3 murder  negative   9217  -9217
+##  4 win     positive   8315   8315
+##  5 killed  negative   8129  -8129
+##  6 attack  negative   7166  -7166
+##  7 boost   positive   6997   6997
+##  8 gold    positive   6211   6211
+##  9 top     positive   5687   5687
+## 10 support positive   5399   5399</code></pre>
 <p>Let’s see top 5 words from positive and negative sentiment.</p>
 <pre class="r"><code>ggplot(top_sentiments_bing, aes(reorder(word, num), num,
                                 fill = sentiment)) +
@@ -426,20 +426,20 @@ news_nrc2 %&gt;%
 tidy_news %&gt;% 
   inner_join(nrc_fear) %&gt;% 
   count(word, sort = TRUE)</code></pre>
-<pre><code>## # A tibble: 1,297 x 2
+<pre><code>## # A tibble: 1,300 x 2
 ##    word           n
 ##    &lt;chr&gt;      &lt;int&gt;
-##  1 police     35705
-##  2 court      16191
-##  3 fire       13819
-##  4 crash      11103
-##  5 death      11052
-##  6 murder      9105
-##  7 hospital    8755
-##  8 accused     8017
-##  9 government  7752
-## 10 missing     7514
-## # ... with 1,287 more rows</code></pre>
+##  1 police     35985
+##  2 court      16380
+##  3 fire       13910
+##  4 crash      11208
+##  5 death      11173
+##  6 murder      9217
+##  7 hospital    8815
+##  8 accused     8094
+##  9 government  7905
+## 10 missing     7582
+## # ... with 1,290 more rows</code></pre>
 <p>“police”, “fire”, “crash” are few of words associated with fear with the word “court” being the highest count.</p>
 </div>
 <div id="comparing-how-sentiments-differ-across-the-sentiment-libraries" class="section level2">
@@ -478,7 +478,7 @@ tidy_news %&gt;%
 <li>NRC : there are 3324 words that are categorized as negative, and 2312 positive.</li>
 </ul>
 <p>The proportion of negative words in Bing lexicon is much higher than proportion of negative words in NRC lexicon.</p>
-<p>Let’s count how many words in the lyrics are categorized for each sentiment:</p>
+<p>Let’s count how many words in our text are categorized for each sentiment:</p>
 <pre class="r"><code># Bing lexicon
 tidy_news %&gt;%
   left_join(get_sentiments(&quot;bing&quot;), by = &quot;word&quot;) %&gt;%
@@ -487,9 +487,9 @@ tidy_news %&gt;%
 <pre><code>## # A tibble: 3 x 2
 ##   sentiment     sum
 ##   &lt;chr&gt;       &lt;int&gt;
-## 1 negative   438340
-## 2 positive   193549
-## 3 &lt;NA&gt;      4652959</code></pre>
+## 1 negative   442853
+## 2 positive   195508
+## 3 &lt;NA&gt;      4706155</code></pre>
 <pre class="r"><code># nrc lexicon
 tidy_news %&gt;% 
   left_join(get_sentiments(&quot;nrc&quot;), by = &quot;word&quot;) %&gt;% 
@@ -498,17 +498,17 @@ tidy_news %&gt;%
 <pre><code>## # A tibble: 11 x 2
 ##    sentiment        sum
 ##    &lt;chr&gt;          &lt;int&gt;
-##  1 anger         303608
-##  2 anticipation  306593
-##  3 disgust       126208
-##  4 fear          434276
-##  5 joy           165878
-##  6 negative      549191
-##  7 positive      512498
-##  8 sadness       267342
-##  9 surprise      148211
-## 10 trust         359605
-## 11 &lt;NA&gt;         3982132</code></pre>
+##  1 anger         306856
+##  2 anticipation  309873
+##  3 disgust       127805
+##  4 fear          438814
+##  5 joy           168191
+##  6 negative      555330
+##  7 positive      518200
+##  8 sadness       270419
+##  9 surprise      150105
+## 10 trust         363695
+## 11 &lt;NA&gt;         4027259</code></pre>
 <ul>
 <li>For Bing: 193, 549 words are categorized as negative and 193,549 words are positive.</li>
 <li>For NRC: 549191 words are categorized as negative and 512,498 positive</li>
@@ -528,7 +528,7 @@ headlines_afinn %&gt;%
 <pre><code>## # A tibble: 1 x 1
 ##       NAs
 ##     &lt;int&gt;
-## 1 4532575</code></pre>
+## 1 4584704</code></pre>
 <pre class="r"><code>headlines_afinn %&gt;% 
   select(score) %&gt;% 
   mutate(sentiment = if_else(score &gt; 0, 
@@ -539,9 +539,9 @@ headlines_afinn %&gt;%
 <pre><code>## # A tibble: 3 x 2
 ##   sentiment     sum
 ##   &lt;chr&gt;       &lt;int&gt;
-## 1 NA        4532575
-## 2 negative   464364
-## 3 positive   202843</code></pre>
+## 1 NA        4584704
+## 2 negative   469070
+## 3 positive   204720</code></pre>
 <p>There are 4,532,575 words out of 5, 199, 782 words that was not categorized by AFINN. Let’s visualize scoring ability of each lexicon.</p>
 <pre class="r"><code>afinn_scores &lt;- headlines_afinn %&gt;% 
   replace_na(replace = list(score = 0)) %&gt;%
@@ -574,20 +574,20 @@ lexicon_cols &lt;- c(&quot;AFINN&quot; = &quot;#E41A1C&quot;,
                   &quot;NRC&quot; = &quot;#377EB8&quot;, &quot;Bing&quot; = &quot;#4DAF4A&quot;)
 
 all_lexicons</code></pre>
-<pre><code>## # A tibble: 330 x 5
+<pre><code>## # A tibble: 333 x 5
 ##    index sentiment lexicon negative positive
 ##    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;
-##  1    0.    -5364. AFINN         NA       NA
-##  2    1.    -3761. AFINN         NA       NA
-##  3    2.    -3952. AFINN         NA       NA
-##  4    3.    -4294. AFINN         NA       NA
-##  5    4.    -4481. AFINN         NA       NA
-##  6    5.    -4077. AFINN         NA       NA
-##  7    6.    -4979. AFINN         NA       NA
-##  8    7.    -4659. AFINN         NA       NA
-##  9    8.    -5018. AFINN         NA       NA
-## 10    9.    -5087. AFINN         NA       NA
-## # ... with 320 more rows</code></pre>
+##  1     0     -5364 AFINN         NA       NA
+##  2     1     -3761 AFINN         NA       NA
+##  3     2     -3952 AFINN         NA       NA
+##  4     3     -4294 AFINN         NA       NA
+##  5     4     -4481 AFINN         NA       NA
+##  6     5     -4077 AFINN         NA       NA
+##  7     6     -4979 AFINN         NA       NA
+##  8     7     -4659 AFINN         NA       NA
+##  9     8     -5018 AFINN         NA       NA
+## 10     9     -5087 AFINN         NA       NA
+## # ... with 323 more rows</code></pre>
 <pre class="r"><code>all_lexicons %&gt;% 
   ggplot(aes(index, sentiment, fill = lexicon)) +
   geom_col() +
